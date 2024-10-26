@@ -37,13 +37,22 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-      
+    permissions:
+      id-token: write #This is required for requesting the JWT
+  
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: java-app
       
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A2FCEE23A71E4D28BFF9E88E268FC8AF }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E3EA2392F09C49E29B3CC5C43C7AC6BA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6D453937706142AC882BB328633443C7 }}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -51,4 +60,4 @@ jobs:
           app-name: 'Globie'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B12284C2A4FA4137B85AEFC647036B42 }}
+          
