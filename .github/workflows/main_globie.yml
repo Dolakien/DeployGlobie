@@ -51,4 +51,4 @@ jobs:
           app-name: 'Globie'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C241DA52FEEF4473B143AF6756920962 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B12284C2A4FA4137B85AEFC647036B42 }}
